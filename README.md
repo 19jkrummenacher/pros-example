@@ -67,3 +67,77 @@ CLASSES in C++
 How to Write a C++ Class
 ```
 In general just do some research I'm sure you can find enough to overwhelming
+
+
+# tasks.json
+
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "make",
+            "type": "shell",
+            "command": "prosv5 make",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "upload",
+            "type": "shell",
+            "command": "prosv5 upload --slot 1 --name new_Btns",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "run",
+            "type": "shell",
+            "command": "prosv5 v5 run",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile"
+        },
+        {
+            "label": "all",
+            "type": "shell",
+            "command": "prosv5 upload --slot 1 --execute --name new_Btns",
+            "group": "build",
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": "$msCompile",
+            "dependsOn": "make"
+        }
+    ]
+}
+# keybindings.json
+
+[
+    {
+        "key": "alt+g",
+        "command": "workbench.action.tasks.runTask",
+        "args": "all"
+    },
+    {
+        "key": "alt+m",
+        "command": "workbench.action.tasks.runTask",
+        "args": "make"
+    },
+    {
+        "key": "alt+u",
+        "command": "workbench.action.tasks.runTask",
+        "args": "upload"
+    },
+    {
+        "key": "alt+r",
+        "command": "workbench.action.tasks.runTask",
+        "args": "run"
+    }
+]
