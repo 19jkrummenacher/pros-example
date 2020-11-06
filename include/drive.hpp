@@ -1,49 +1,47 @@
-#pragma once
+#ifndef DRIVE_HPP
+#define DRIVE_HPP
 #include "main.h"
-#include "tarvis/api.hpp"
-class Drive : public tarvis::System
-{
-  public:
-    static Drive &get();
-    void moveY(double distance, double velocity, int timeout = 1000, int endWait = 100);
-    void moveX(double distance, double velocity, int timeout = 1000, int endWait = 100);
-    void moveZ(double distance, double velocity, int timeout = 1000, int endWait = 100);
-    bool isSettled(int v);
-    double getXDeg();
-    double getYDeg();
-    double getZDeg();
+namespace drive{
+  //vars
+  enum class Controllers{MANUAL,NONE};
+  //vars FUNCTIONS
+  // bool get_invert();
+  /*
+  * inverts the dirve
+  */
+  void set_inverted(bool i);
+  //methods
+  okapi::Motor::brakeMode get_brakeMode();
+  void set_brakeMode(okapi::Motor::brakeMode b);
+  void set_v(int v1,int v2,int v3,int v4);
+  void execute();
+  namespace feedback{
+    /*
+    * rumbles the controller when
+    * the drive is not in coast
+    */
+    void rumble();
+  }
+  namespace control{
+    void manual();
+    void hold();
+  }
+  namespace auton{
+    void DIN(int l,int r);//drive instentaniouly
+    void DIS(int l,int r);//drive instentaniouly
 
-  private:
-    Drive();
-    double yTargetDistance{0};
-    double xTargetDistance{0};
-    double zTargetDistance{0};
-    const double wheelCir = 12.56;
-    MotorGroup front_left_wheel{{1, 2}};
-    MotorGroup front_right_wheel{{2, 3}};
-    MotorGroup back_left_wheel{{4, 5}};
-    MotorGroup back_right_wheel{{6, 7}};
-    tarvis::Trapezoidal rampY{5, 10, 200, -200, [&](double output) {}};
-    tarvis::Trapezoidal rampX{5, 10, 200, -200, [&](double output) {}};
-    tarvis::Trapezoidal rampZ{5, 10, 200, -200, [&](double output) {
-                                  front_left_wheel.moveVelocity(rampY.output() + rampX.output() + rampZ.output());
-                                  front_right_wheel.moveVelocity(rampY.output() - rampX.output() - rampZ.output());
-                                  back_left_wheel.moveVelocity(rampY.output() - rampX.output() + rampZ.output());
-                                  back_right_wheel.moveVelocity(rampY.output() + rampX.output() - rampZ.output());
-                              }};
+    void ramping();//sets drive motors to spin
+    bool isSettled(int v=0);
+    void drive(double tar, int vel=200, int EndWait=1,bool abs=false); // assumes velocity start = end = 0
+    void driveRecon(int Pct,int Wait,int EndWait=250);
+    void driveS(double tar,int vel=200,int EndWait=1,int Correction=1);
+    void driveReconS(int Pct,int Wait,int EndWait=1);
+    void turnEnc(double deg,int v,int endwait);
 
-    void userCallstack() override;
-    void userInit() override;
-    void userDeInit() override;
 
-    void autonCallstack() override;
-    void autonInit() override;
-    void autonDeInit() override;
-    void wait(int endWait, double vSettled, int timeout, bool y, bool x, bool z);
-    const double length = 15; // front to back wheels measured from axil to axil
-    const double width =
-        15; // left to right wheels measured from the left of the left wheel to the left of the right wheel
-};
-extern Drive &drive;
-
-// void t() { drive.userCallstack(); }
+    // void drive(double in);
+    // void Absolute(double forward, double strafe, double yaw);
+    // void AbsolutelyRelative(double forward, double strafe, double yaw);
+  }
+}
+#endif /* end of include guard: DRIVE_HPP */

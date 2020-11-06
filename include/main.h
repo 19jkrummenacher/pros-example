@@ -75,6 +75,7 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
+#include "hardware.hpp"
 //#include <iostream>
 #endif
 
