@@ -7,7 +7,7 @@ namespace tarvis
 #endif
     Trapezoidal::Trapezoidal(double CV, double CM, double max, double min, std::function<void(double)> callback) :
         changeVal(CV), cb(callback), changeMsec(CM), max(max), min(min), prevMsec(pros::millis()), task([&]() {
-            callback(calculate());
+            cb(calculate());
             task.delay_until(&prevMsec, changeMsec);
         })
     {
@@ -19,7 +19,7 @@ namespace tarvis
     Trapezoidal::Trapezoidal(double CV, std::function<void(double)> callback) :
         changeVal(CV), cb(callback), changeMsec(okapi::motorUpdateRate), max(1), min(-1), prevMsec(pros::millis()),
         task([&]() {
-            callback(calculate());
+            cb(calculate());
             task.delay_until(&prevMsec, changeMsec);
         })
     {
