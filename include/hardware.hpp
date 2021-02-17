@@ -24,12 +24,22 @@ namespace intake
     extern okapi::MotorGroup motors;
     extern okapi::ControllerButton btnUp;
     extern okapi::ControllerButton btnDown;
+    extern okapi::ControllerButton btnDownArrow;
+    extern okapi::ControllerButton btnY;
 
 } // namespace intake
 namespace feed
 {
-    extern okapi::MotorGroup motors;
+    extern okapi::Motor frontFeed;
+    extern okapi::Motor backFeed;
+    extern okapi::ControllerButton btnRightArrow;
+    extern okapi::ControllerButton btnY;
+    extern okapi::ControllerButton btnB;
     extern okapi::ControllerButton btnUp;
+    extern okapi::ControllerButton btnDownArrow;
     extern okapi::ControllerButton btnDown;
-
+    extern okapi::ControllerButton btnRDown;
+    extern okapi::ControllerButton btnRUp;
+    extern pros::Optical frontOpt;
+    extern pros::Optical backOpt;
 } // namespace feed

@@ -36,7 +36,7 @@ void autonomous()
     drive::RightS.instant(0);
     auton::autonTask.resume();
 
-    drive::auton::drive(10);
+    //drive::auton::drive(10);
 }
 void opcontrol()
 {
@@ -49,8 +49,8 @@ void opcontrol()
         drive::control::manual();
         drive::control::hold();
 
-        intake::user();
-        feed::user();
+        intake::control::user();
+        feed::control::user();
 
         pros::Task::delay_until(&prev, 10);
         // the maximum refresh of the motors is 20_ms, so might as well save some battery

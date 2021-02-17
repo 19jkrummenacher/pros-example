@@ -1,24 +1,57 @@
 #include "feed.hpp"
+/**
+* @author Jonathan Krummenacher
+* @version 1.0
+* @Date 2/16/2021
+* The feed class controls the feed of the bot. This class is split into two namespace.
+* One for user control and one for autonomous control.
+*/
 namespace feed
 {
+  /**
+  * @version 1.0
+  * @Date 2/16/2021
+  * uses the controller input to control the feed.
+  */
+  namespace control
+  {
     void user()
     {
-        if (btnUp.changedToPressed())
-        {
-            motors.moveVoltage(
-                12000); // maximum voltage AKA maximum power; velocities will verry but that shouldnt matter as the
-                        // intake just needs to intake a ball as fast as posible, not at a consitent speed
+        if (btnUp.changedToPressed() || btnDownArrow.changedToPressed())
+        {//move all rollers so the ball goes down
+            backFeed.moveVoltage(6000);
+            frontFeed.moveVoltage(6000);
         }
         else if (btnDown.changedToPressed())
-        {
-            motors.moveVelocity(
-                -100); // intake the ball down at a const velocity as to make it consitent so the driver
-                       // knows what to expect when things go wrong, better allowing them to focus on how to
-                       // make up time/mini panic and not have to worry/think as hard about how to correct it
+        {//move all rollers so the ball goes up.
+            frontFeed.moveVoltage(-12000);
+            backFeed.moveVoltage(-12000);
         }
-        else if (btnUp.changedToReleased() || btnDown.changedToReleased()) //"||" means or
+        else if(btnRightArrow.changedToPressed() || btnRUp.changedToPressed() || btnRDown.changedToPressed())
+        {//move just the bottom rollers.
+          frontFeed.moveVoltage(-12000);
+          backFeed.moveVoltage(-12000);
+        }
+        else if(btnY.changedToPressed())
         {
-            motors.moveVelocity(0); // stop motors
+          backFeed.moveVoltage(6000);
+          frontFeed.moveVoltage(-6000);
+        }
+        else if (btnUp.changedToReleased() || btnDown.changedToReleased() || btnY.changedToReleased() || btnRightArrow.changedToReleased() || btnDownArrow.changedToReleased() || btnRUp.changedToReleased() || btnRDown.changedToReleased())
+        {
+            backFeed.moveVoltage(0);
+            frontFeed.moveVoltage(0);
         }
     }
+  }
+
+  /**
+  * @version 1.0
+  * @Date 2/16/2021
+  * autonomously controls the feed.
+  */
+  namespace auton
+  {
+
+  }
 } // namespace feed
