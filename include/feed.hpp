@@ -8,7 +8,8 @@ namespace feed
   }
   namespace auton
   {
-    
+    int* getFeedValues();
+    void autoFeed();
   }
     // void auton();
 } // namespace feed

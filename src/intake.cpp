@@ -28,7 +28,7 @@ namespace intake
       void user()
       {
           //maybe a manual toggle in the future.
-          if (btnUp.changedToPressed() || btnY.changedToPressed())
+          if (btnUp.changedToPressed() || btnRightArrow.changedToPressed())
           {//intake ball in.
               motors.moveVoltage(12000);
               //intakeOpen = false;
@@ -41,12 +41,16 @@ namespace intake
               //intakeOpen = true;
               //motors.setBrakeMode((AbstractMotor::brakeMode::hold));
           }
+          else if(btnB.changedToPressed())
+          {
+            motors.moveVoltage(-12000);
+          }
           /*else if(intakeOpen)
           {
             if(targetEncoder <= motors.getPosition());
               //implementation needed.
           }*/
-          else if (btnUp.changedToReleased() || btnY.changedToReleased() || btnDown.changedToReleased() || btnDownArrow.changedToReleased())
+          else if (btnUp.changedToReleased() || btnRightArrow.changedToReleased() || btnDown.changedToReleased() || btnDownArrow.changedToReleased() || btnB.changedToReleased())
           {
               motors.moveVoltage(0); // stop motors
           }

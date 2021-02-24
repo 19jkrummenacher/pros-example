@@ -10,19 +10,12 @@ double SGN(double var) {
 }
 namespace drive {
   // vars
+
   Controllers Controller = Controllers::NONE;
   const float WheelCir = 4 * M_PI;
-
-  bool Inverted = false;
-  bool InvertedWas = Inverted;
   // vars FUNCTIONS
   Controllers get_controller() { return Controller; }
   void set_controller(Controllers c) { Controller = c; }
-  bool get_inverted() { return Inverted; }
-  void set_inverted(bool i) {
-    InvertedWas = get_inverted();
-    Inverted = i;
-  }
   // methods
   okapi::Motor::brakeMode get_brakeMode() {
     return front_left_motor.getBrakeMode();
@@ -70,51 +63,80 @@ namespace drive {
       }
     }
   }  // namespace feedback
+
   namespace control {
+    bool halfSpeed = true;
     void manual() {
+
       int LHJoy =
-          controllerMaster.getAnalog(okapi::ControllerAnalog::leftX) * 200;
+          (controllerMaster.getAnalog(okapi::ControllerAnalog::leftX) > 0)? std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::leftX), 2) * 600: -1 *std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::leftX), 2) * 600;
       int LVJoy =
-          controllerMaster.getAnalog(okapi::ControllerAnalog::leftY) * 200;
+          (controllerMaster.getAnalog(okapi::ControllerAnalog::leftY) > 0)? std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::leftY), 2) * 600: -1 * std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::leftY), 2) * 600;
       int RVJoy =
-          controllerMaster.getAnalog(okapi::ControllerAnalog::rightY) * 200;
+          (controllerMaster.getAnalog(okapi::ControllerAnalog::rightY) > 0)? std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightY), 2) * 600: -1 * std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightY), 2) * 600;
       int RHJoy =
-          controllerMaster.getAnalog(okapi::ControllerAnalog::rightX) * 200;
+          (controllerMaster.getAnalog(okapi::ControllerAnalog::rightX) > 0) ? std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightX), 2) * 600:-1 * std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightX), 2) * 600;
 
       if (std::abs(LVJoy) < 5) LVJoy = 0;
       if (std::abs(RVJoy) < 5) RVJoy = 0;
-      if (std::abs(LHJoy) < 100) LHJoy = 0;
-      if (std::abs(RHJoy) < 100) RHJoy = 0;
-
+      /*if (std::abs(LHJoy) < 100)*/ LHJoy = 0;
+      /*if (std::abs(RHJoy) < 100)*/ RHJoy = 0;
+      if(btnUpArrow.isPressed())
+      {
+        halfSpeed = !halfSpeed;
+      }
       if (LVJoy != 0 || RVJoy != 0 || LHJoy != 0 || RHJoy != 0) {
         set_controller(Controllers::MANUAL);
-        tank(get_inverted() ? -RVJoy : LVJoy, get_inverted() ? -LVJoy : RVJoy,
-             get_inverted() ? -RHJoy : LHJoy, get_inverted() ? -LHJoy : RHJoy);
-      } else {
-        if (get_controller() == Controllers::MANUAL) {
+        if(halfSpeed)
+          {
+            LVJoy *= .75;
+            RVJoy *= .75;
+            LHJoy *= .75;
+            RHJoy *= .75;
+          }
+        tank(LVJoy, RVJoy, LHJoy, RHJoy);
+      }
+      else
+      {
+        // if (get_controller() == Controllers::MANUAL) {
           tank(0, 0, 0, 0);  // Last loop before disableing; used to release
                              // drivemanualcontrol
-          set_controller(Controllers::NONE);
-        }
+          // set_controller(Controllers::NONE);
+        //}
       }
     }
-    void hold() {
-      if (btnBrake.changed()) {
-        if (btnBrake.isPressed()) {  // init
+    void hold()
+    {
+      if (btnBrake.changed())
+      {
+        if (btnBrake.isPressed())
+        {  // init
           if (get_brakeMode() == okapi::Motor::brakeMode::coast)
             set_brakeMode(okapi::Motor::brakeMode::hold);
           else
             set_brakeMode(okapi::Motor::brakeMode::coast);
-        } else {  // deinti
         }
-      } else if (btnBrake.isPressed()) {  // hold
+        else
+        {  // deinti
+          //jon- no clue what goes here.
+        }
+      }
+      else if (btnBrake.isPressed())
+      {  // hold
 
-      } else {
+      }
+      else
+      {
+
       }
     }
   }  // namespace control
+
+
+
+
   namespace auton {
-    bool isSettled(int v) {
+    /*bool isSettled(int v) {
       if (std::abs(front_left_motor.getActualVelocity()) > v) return false;
       if (std::abs(back_left_motor.getActualVelocity()) > v) return false;
       if (std::abs(front_right_motor.getActualVelocity()) > v) return false;
@@ -314,6 +336,6 @@ namespace drive {
       }
       DIN(0, 0);
       pros::delay(endwait);
-    }
+    }*/
   }  // namespace auton
 }  // namespace drive
