@@ -41,12 +41,17 @@ void autonomous()
     drive::LeftS.instant(0);
     drive::RightS.instant(0);*/
     auton::autonTask.resume();
+<<<<<<< HEAD
     feed::frontFeed.moveVoltage(-12000);
     feed::topFeed.moveVoltage(-12000);
     pros::delay(4000);
     feed::frontFeed.moveVoltage(0);
     feed::topFeed.moveVoltage(0);
     //drive::auton::drive(10);
+=======
+
+    drive::auton::drive(10);
+>>>>>>> parent of 18a6ff6... updating
 }
 void opcontrol()
 {
@@ -58,8 +63,8 @@ void opcontrol()
         drive::control::manual();
       //  drive::control::hold();
 
-        intake::control::user();
-        feed::control::user();
+        intake::user();
+        feed::user();
 
         pros::Task::delay_until(&prev, 10);
         // the maximum refresh of the motors is 20_ms, so might as well save some battery

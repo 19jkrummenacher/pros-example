@@ -21,13 +21,17 @@ namespace intake
     extern okapi::MotorGroup motors;
     extern okapi::ControllerButton btnUp;
     extern okapi::ControllerButton btnDown;
+<<<<<<< HEAD
     extern okapi::ControllerButton btnDownArrow;
     extern okapi::ControllerButton btnRightArrow;
     extern okapi::ControllerButton btnB;
+=======
+>>>>>>> parent of 18a6ff6... updating
 
 } // namespace intake
 namespace feed
 {
+<<<<<<< HEAD
     extern okapi::Motor frontFeed;
     extern okapi::Motor backFeed;
     extern okapi::Motor topFeed;
@@ -45,3 +49,10 @@ namespace feed
     extern pros::ADIAnalogIn midLineTracker;
     extern pros::ADIAnalogIn bottomLineTracker;
 } // namespace feed
+=======
+    extern okapi::MotorGroup motors;
+    extern okapi::ControllerButton btnUp;
+    extern okapi::ControllerButton btnDown;
+
+} // namespace feed
+>>>>>>> parent of 18a6ff6... updating
