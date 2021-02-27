@@ -4,6 +4,7 @@ namespace feed
 {
     void user();
 <<<<<<< HEAD
+<<<<<<< HEAD
   }
   namespace auton
   {
@@ -12,5 +13,7 @@ namespace feed
   }
 =======
 >>>>>>> parent of 18a6ff6... updating
+=======
+>>>>>>> parent of 18a6ff6 (updating)
     // void auton();
 } // namespace feed

@@ -42,6 +42,7 @@ void autonomous()
     drive::RightS.instant(0);*/
     auton::autonTask.resume();
 <<<<<<< HEAD
+<<<<<<< HEAD
     feed::frontFeed.moveVoltage(-12000);
     feed::topFeed.moveVoltage(-12000);
     pros::delay(4000);
@@ -52,6 +53,10 @@ void autonomous()
 
     drive::auton::drive(10);
 >>>>>>> parent of 18a6ff6... updating
+=======
+
+    drive::auton::drive(10);
+>>>>>>> parent of 18a6ff6 (updating)
 }
 void opcontrol()
 {

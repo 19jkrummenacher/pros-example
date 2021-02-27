@@ -2,6 +2,7 @@
 namespace intake
 {
 <<<<<<< HEAD
+<<<<<<< HEAD
   /**
   * @version 1.0
   * @Date 2/16/2021
@@ -59,6 +60,9 @@ namespace intake
 =======
     void user()
 >>>>>>> parent of 18a6ff6... updating
+=======
+    void user()
+>>>>>>> parent of 18a6ff6 (updating)
     {
         if (btnUp.changedToPressed())
         {
