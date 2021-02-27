@@ -26,7 +26,7 @@ namespace drive{
     void hold();
   }
   namespace auton{
-    /*void DIN(int l,int r);//drive instentaniouly
+    void DIN(int l,int r);//drive instentaniouly
     void DIS(int l,int r);//drive instentaniouly
 
     void ramping();//sets drive motors to spin
@@ -35,7 +35,7 @@ namespace drive{
     void driveRecon(int Pct,int Wait,int EndWait=250);
     void driveS(double tar,int vel=200,int EndWait=1,int Correction=1);
     void driveReconS(int Pct,int Wait,int EndWait=1);
-    void turnEnc(double deg,int v,int endwait);*/
+    void turnEnc(double deg,int v,int endwait);
 
 
     // void drive(double in);

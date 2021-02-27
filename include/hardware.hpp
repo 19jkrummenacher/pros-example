@@ -12,7 +12,10 @@ namespace drive
     extern okapi::MotorGroup back_right_motor;
     extern okapi::ControllerButton btnBrake;
     extern okapi::ControllerButton btnUpArrow;
-
+    extern Ramping LeftN;
+    extern Ramping RightN;
+    extern Ramping LeftS;
+    extern Ramping RightS;
 
 } // namespace drive
 

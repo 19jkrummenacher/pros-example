@@ -136,7 +136,7 @@ namespace drive {
 
 
   namespace auton {
-    /*bool isSettled(int v) {
+    bool isSettled(int v) {
       if (std::abs(front_left_motor.getActualVelocity()) > v) return false;
       if (std::abs(back_left_motor.getActualVelocity()) > v) return false;
       if (std::abs(front_right_motor.getActualVelocity()) > v) return false;
@@ -336,6 +336,6 @@ namespace drive {
       }
       DIN(0, 0);
       pros::delay(endwait);
-    }*/
+    }
   }  // namespace auton
 }  // namespace drive

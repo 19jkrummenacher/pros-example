@@ -12,7 +12,7 @@ namespace auton
         uint32_t prevMsec = pros::millis();
         while (true)
         {
-            //drive::auton::ramping();
+            drive::auton::ramping();
             // puncher::execute();
 
             // intake::execute();
@@ -36,10 +36,10 @@ void competition_initialize() {}
 void autonomous()
 {
     drive::set_brakeMode(okapi::Motor::brakeMode::hold);
-    /*drive::LeftN.instant(0);
+    drive::LeftN.instant(0);
     drive::RightN.instant(0);
     drive::LeftS.instant(0);
-    drive::RightS.instant(0);*/
+    drive::RightS.instant(0);
     auton::autonTask.resume();
     feed::fire();
     pros::delay(5000);
