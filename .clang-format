@@ -1,0 +1,6 @@
+BasedOnStyle: Microsoft
+NamespaceIndentation: All
+AllowShortIfStatementsOnASingleLine: Always
+AllowShortLambdasOnASingleLine: All
+AllowShortFunctionsOnASingleLine: All
+BreakConstructorInitializers: AfterColon
