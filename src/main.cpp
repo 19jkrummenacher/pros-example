@@ -3,6 +3,7 @@
 #include "feed.hpp"
 #include "intake.hpp"
 #include "hardware.hpp"
+#include "routines.hpp"
 
 // todo spell check comments
 namespace auton
@@ -13,12 +14,8 @@ namespace auton
         while (true)
         {
             drive::auton::ramping();
-            // puncher::execute();
-
-            // intake::execute();
-            // lift::execute();
-            // flipper::execute();
-
+            feed::auton::execute();
+            intake::auton::execute();
             pros::Task::delay_until(&prevMsec, 10); // delay for 5 millis exact
         }
     }
@@ -41,17 +38,16 @@ void autonomous()
     drive::LeftS.instant(0);
     drive::RightS.instant(0);
     auton::autonTask.resume();
-    feed::fire();
-    pros::delay(5000);
-    feed::frontFeed.moveVoltage(0);
-    feed::topFeed.moveVoltage(0);
-    //drive::auton::drive(10);
+    pros::lcd::set_text(1,"hello autonomous");
+    intake::auton::autoIntakeOpen(true, 2000);
+    //routines::auton2();
 }
 void opcontrol()
 {
     auton::autonTask.suspend();
     drive::set_brakeMode(okapi::Motor::brakeMode::coast);
     uint32_t prev = pros::millis();
+    pros::lcd::set_text(1,"hello driver");
     while (true)
     {
         drive::control::manual();

@@ -19,10 +19,10 @@ namespace drive
     okapi::ControllerButton btnBrake = controllerMaster[okapi::ControllerDigital::A];
     okapi::ControllerButton btnUpArrow = controllerMaster[okapi::ControllerDigital::up];
 
-    Ramping LeftN(2, 10, 200, -200);
-    Ramping RightN(2, 10, 200, -200);
-    Ramping LeftS(2, 10, 200, -200);
-    Ramping RightS(2, 10, 200, -200);
+    Ramping LeftN(6, 10, 600, -600);
+    Ramping RightN(6, 10, 600, -600);
+    Ramping LeftS(6, 10, 600, -600);
+    Ramping RightS(6, 10, 600, -600);
 } // namespace drive
 
 namespace intake

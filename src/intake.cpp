@@ -9,6 +9,31 @@
 */
 namespace intake
 {
+  void intakeIn()
+  {
+    motors.moveVoltage(12000);
+  }
+
+  void intakeOutHalfSpeed()
+  {
+    motors.moveVoltage(-6000);
+  }
+
+  void intakeOut()
+  {
+    motors.moveVoltage(-12000);
+  }
+
+  void stopIntake()
+  {
+    motors.moveVoltage(0);
+  }
+
+  void set_brakeMode(okapi::Motor::brakeMode b)
+  {
+    motors.setBrakeMode(b);
+  }
+
   /**
   * @version 1.0
   * @Date 2/16/2021
@@ -16,8 +41,6 @@ namespace intake
   */
   namespace control
   {
-    int targetEncoder = 0;
-    bool intakeOpen = false;
 
     /**
     * user is used for taking in controller reading and controlling the robot in Driver mode.
@@ -30,20 +53,20 @@ namespace intake
           //maybe a manual toggle in the future.
           if (btnUp.isPressed() || btnRightArrow.isPressed())
           {//intake ball in.
-              motors.moveVoltage(12000);
+              intakeIn();
               //intakeOpen = false;
               //motors.setBrakeMode(AbstractMotor::brakeMode::coast);
           }
           else if (btnDown.isPressed() || btnDownArrow.isPressed())
           {//opens intake up
               //targetEncoder = motors.getPosition() + 10;
-              motors.moveVoltage(-6000);
+              intakeOutHalfSpeed();
               //intakeOpen = true;
               //motors.setBrakeMode((AbstractMotor::brakeMode::hold));
           }
           else if(btnB.isPressed())
           {
-            motors.moveVoltage(-12000);
+            intakeOut();
           }
           /*else if(intakeOpen)
           {
@@ -64,84 +87,48 @@ namespace intake
     */
     namespace auton
     {
-      int intakeTarget = 0;
       bool intakeOpen = false;
+      bool autoIntakeToggle = false;
+      int waitIndex = -1;
 
-      /**
-      * returns an char depending on if the color sensor can see a red, blue, or nothing. -1 is blue, 0 is nothing, and 1 is red.
-      */
-      char getColor()
+      void execute()
       {
-        return 0;//implementation needed.
+        if(autoIntakeToggle)
+        {
+          if(intakeOpen && motors.getPosition() <= 40)
+          {
+            intakeOut();
+            waitIndex--;
+          }
+          else if(waitIndex != -1 && waitIndex > 0)
+          {
+            autoIntakeOpen(false, -1);
+          }
+          else
+          {
+              stopIntake();
+              waitIndex--;
+          }
+
+        }
       }
 
-      /**
-      * returns the distance from the sensor.
-      */
-      char getDistance()
+      void autoIntakeOpen(bool toggle, int wait)
       {
-        return 0; //implemenation needed.
-      }
-
-      /**
-      * returns true if the intake is open.
-      */
-      bool isIntakeOpen()
-      {
-        return intakeOpen;
-      }
-
-      /**
-      * opens intake and keeps it open
-      */
-      void openIntake()
-      {
-        intakeOpen = true;
-        //implementation needed.
-      }
-
-      /**
-      * opens intake for selected number of miliseconds
-      */
-      void openIntake(int miliSeconds)
-      {
-        intakeOpen = true;
-        //implementation needed
-      }
-
-      /**
-      * only closes intake
-      */
-      void closeIntake()
-      {
-        intakeOpen = false;
-        //implementation needed
-      }
-
-      /**
-      * closes intake and runs it continuelsy
-      */
-      void runIntake()
-      {
-        intakeOpen = false;
-        //implementation needed
-      }
-
-      /**
-      * closes intake and runs for a specified number of miliSeconds.
-      */
-      void runIntake(int miliSeconds)
-      {
-        intakeOpen = false;
-        //implementation needed
-      }
-
-      /**
-      * cuts the power to the intakes and closes them
-      */
-      void stopIntake()
-      {
-        motors.moveVoltage(0);
+        autoIntakeToggle = toggle;
+        waitIndex = wait / 10;
+        if(toggle)
+        {
+          intakeOpen = true;
+          motors.tarePosition();
+          motors.setBrakeMode(okapi::Motor::brakeMode::brake);
+        }
+        else
+        {
+          motors.setBrakeMode(okapi::Motor::brakeMode::coast);
+          intakeOpen = false;
+          stopIntake();
+        }
       }
 
     }

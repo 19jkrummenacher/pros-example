@@ -65,6 +65,11 @@ namespace feed
     topFeed.moveVoltage(voltage);
   }
 
+  void setAutoFeed(bool input)
+  {
+    autoFeedToggle = input;
+  }
+
   /**
   * @version 1.0
   * @Date 2/16/2021
@@ -128,6 +133,15 @@ namespace feed
   */
   namespace auton
   {
+
+    void execute()
+    {
+      if(autoFeedToggle)
+      {
+        autoFeed();
+      }
+    }
+
     int* getFeedValues()
     {
       int* feedValues = new int[5];
@@ -141,13 +155,9 @@ namespace feed
 
     void autoFeed()
     {
-      if(frontOptical.get_hue() < redValue && topLineTracker.get_value() > 70 && midLineTracker.get_value() > 70)
+      if(topLineTracker.get_value() > 2000 || midLineTracker.get_value() > 2000)
       {
         feedIn();
-      }
-      else if(frontOptical.get_hue() > blueValue)
-      {
-        outChute();
       }
       else
       {

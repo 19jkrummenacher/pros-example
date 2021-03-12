@@ -2,7 +2,10 @@
 #include "main.h"
 namespace intake
 {
-
+  void intakeIn();
+  void intakeOutHalfSpeed();
+  void intakeOut();
+  void stopIntake();
   namespace control
   {
     void user();
@@ -10,15 +13,8 @@ namespace intake
 
   namespace auton
   {
-    char getColor();
-    char getDistance();
-    bool isIntakeOpen();
-    void openIntake();
-    void openIntake(int miliSeconds);
-    void closeIntake();
-    void runIntake();
-    void runIntake(int miliSeconds);
-    void stopIntake();
+    void execute();
+    void autoIntakeOpen(bool, int);
   }
 
 

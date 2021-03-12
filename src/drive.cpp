@@ -77,10 +77,10 @@ namespace drive {
       int RHJoy =
           (controllerMaster.getAnalog(okapi::ControllerAnalog::rightX) > 0) ? std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightX), 2) * 600:-1 * std::pow(controllerMaster.getAnalog(okapi::ControllerAnalog::rightX), 2) * 600;
 
-      if (std::abs(LVJoy) < 5) LVJoy = 0;
-      if (std::abs(RVJoy) < 5) RVJoy = 0;
-      /*if (std::abs(LHJoy) < 100)*/ LHJoy = 0;
-      /*if (std::abs(RHJoy) < 100)*/ RHJoy = 0;
+      if (std::abs(LVJoy) < 5 /*|| std::abs(LHJoy) > 400*/) LVJoy = 0;
+      if (std::abs(RVJoy) < 5 /*|| std::abs(RHJoy) > 400*/) RVJoy = 0;
+      /*if (std::abs(LHJoy) < 300)*/ LHJoy = 0;
+      /*if (std::abs(RHJoy) < 300)*/ RHJoy = 0;
       if(btnUpArrow.isPressed())
       {
         halfSpeed = !halfSpeed;
@@ -233,6 +233,7 @@ namespace drive {
         back_left_motor.tarePosition();
         while (std::abs(back_left_motor.getPosition()) < std::abs(totalDeg)) {  // max error is 1/30 of an inch;
           DRN(velocity, velocity);
+          //std::cout << velocity << "\n";
           pros::delay(5);  // wait for the ramp task to execute, free up PU,wait
                           // for distance to be travled;
           // need to sync with ramping task
