@@ -39,8 +39,8 @@ void autonomous()
     drive::RightS.instant(0);
     auton::autonTask.resume();
     pros::lcd::set_text(1,"hello autonomous");
-    intake::auton::autoIntakeOpen(true, 2000);
-    //routines::auton2();
+
+    routines::auton1();
 }
 void opcontrol()
 {

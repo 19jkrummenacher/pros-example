@@ -89,25 +89,31 @@ namespace intake
     {
       bool intakeOpen = false;
       bool autoIntakeToggle = false;
+      bool openFirstTime = false;
       int waitIndex = -1;
+      int target = -55;
 
       void execute()
       {
         if(autoIntakeToggle)
         {
-          if(intakeOpen && motors.getPosition() <= 40)
+          std::cout<<waitIndex<<"\n";
+
+          if(waitIndex != -1 && waitIndex > -100 && waitIndex < 0)
+          {
+            //autoIntakeOpen(false, 5000);
+            intakeOpen = false;
+            intakeIn();
+            waitIndex--;
+          }
+          else if(intakeOpen && motors.getPosition() >= target)
           {
             intakeOut();
             waitIndex--;
           }
-          else if(waitIndex != -1 && waitIndex > 0)
-          {
-            autoIntakeOpen(false, -1);
-          }
           else
           {
               stopIntake();
-              waitIndex--;
           }
 
         }
@@ -117,16 +123,24 @@ namespace intake
       {
         autoIntakeToggle = toggle;
         waitIndex = wait / 10;
+        if(openFirstTime)
+        {
+          target = -120;
+          openFirstTime = false;
+        }
+        else
+        {
+          target = -55;
+        }
         if(toggle)
         {
-          intakeOpen = true;
+            intakeOpen = true;
           motors.tarePosition();
-          motors.setBrakeMode(okapi::Motor::brakeMode::brake);
+          motors.setBrakeMode(okapi::Motor::brakeMode::hold);
         }
         else
         {
           motors.setBrakeMode(okapi::Motor::brakeMode::coast);
-          intakeOpen = false;
           stopIntake();
         }
       }

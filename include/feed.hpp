@@ -5,7 +5,9 @@ namespace feed
   void fire();
   void stopFeed();
   void feedIn();
+  void feedInHalfSpeed();
   void outChute();
+  void clearChute();
   void setAutoFeed(bool);
   namespace control
   {

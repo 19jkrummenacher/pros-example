@@ -23,6 +23,14 @@ namespace feed
     topFeed.moveVoltage(0);
   }
 
+  void clearChute()
+  {
+    backFeed.moveVoltage(12000);
+    frontFeed.moveVoltage(12000);
+    topFeed.moveVoltage(12000);
+  }
+
+
   void feedOut()
   {
     backFeed.moveVoltage(6000);
@@ -37,10 +45,18 @@ namespace feed
     topFeed.moveVoltage(0);
   }
 
+  void feedInHalfSpeed()
+  {
+    frontFeed.moveVoltage(-8000);
+    backFeed.moveVoltage(-8000);
+    topFeed.moveVoltage(0);
+  }
+
   void fire()
   {
-    frontFeed.moveVoltage(-12000);
     topFeed.moveVoltage(-12000);
+    frontFeed.moveVoltage(-12000);
+
     backFeed.moveVoltage(-12000);
   }
 
@@ -155,13 +171,18 @@ namespace feed
 
     void autoFeed()
     {
-      if(topLineTracker.get_value() > 2000 || midLineTracker.get_value() > 2000)
-      {
-        feedIn();
-      }
-      else
+      if(topLineTracker.get_value() < 2500 /*&& (midLineTracker.get_value() < 2500 || bottomLineTracker.get_value() < 2500)*/)
       {
         stopFeed();
+
+      }
+      /*else if(topLineTracker.get_value() < 2500 && (midLineTracker.get_value() > 2500 || bottomLineTracker.get_value() > 2500))
+      {
+        feedInHalfSpeed();
+      }*/
+      else
+      {
+        feedIn();
       }
     }
 
