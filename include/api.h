@@ -40,9 +40,15 @@
 #endif /* __cplusplus */
 
 #define PROS_VERSION_MAJOR 3
+<<<<<<< HEAD
 #define PROS_VERSION_MINOR 4
 #define PROS_VERSION_PATCH 0
 #define PROS_VERSION_STRING "3.4.0"
+=======
+#define PROS_VERSION_MINOR 3
+#define PROS_VERSION_PATCH 1
+#define PROS_VERSION_STRING "3.3.1"
+>>>>>>> kill-me
 
 #define PROS_ERR (INT32_MAX)
 #define PROS_ERR_F (INFINITY)

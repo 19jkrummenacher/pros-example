@@ -11,7 +11,6 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
-
 #ifndef _PROS_MAIN_H_
 #define _PROS_MAIN_H_
 
@@ -40,7 +39,8 @@
  * You should add more #includes here
  */
 #include "okapi/api.hpp"
-//#include "pros/api_legacy.h"
+// #include "src/tarvis/api.hpp"
+#include "pros/api_legacy.h"
 
 /**
  * If you find doing pros::Motor() to be tedious and you'd prefer just to do
@@ -53,7 +53,7 @@
 // using namespace pros;
 // using namespace pros::literals;
 using namespace okapi;
-
+// using namespace tarvis;
 /**
  * Prototypes for the competition control tasks are redefined here to ensure
  * that they can be called from user code (i.e. calling autonomous from a
@@ -75,6 +75,7 @@ void opcontrol(void);
 /**
  * You can add C++-only headers here
  */
+#include "hardware.hpp"
 //#include <iostream>
 #endif
 
