@@ -11,7 +11,6 @@ namespace drive
     extern okapi::MotorGroup back_left_motor;
     extern okapi::MotorGroup back_right_motor;
     extern okapi::ControllerButton btnBrake;
-    extern okapi::ControllerButton btnUpArrow;
     extern Ramping LeftN;
     extern Ramping RightN;
     extern Ramping LeftS;
@@ -22,27 +21,24 @@ namespace drive
 namespace intake
 {
     extern okapi::MotorGroup motors;
-    extern okapi::ControllerButton btnUp;
-    extern okapi::ControllerButton btnDown;
-    extern okapi::ControllerButton btnDownArrow;
-    extern okapi::ControllerButton btnRightArrow;
-    extern okapi::ControllerButton btnB;
-
+    extern okapi::ControllerButton BtnIn;
+    extern okapi::ControllerButton BtnOut;
+    extern okapi::ControllerButton ManualIn;
 } // namespace intake
 namespace feed
 {
+
+    extern okapi::ControllerButton BtnIn;
+    extern okapi::ControllerButton BtnOut;
+    extern okapi::ControllerButton BtnBack;
+    extern okapi::ControllerButton Down;
+    extern okapi::ControllerButton UpOnly;
+    extern okapi::ControllerButton mid;
+    extern okapi::ControllerButton autoElev;
+
     extern okapi::Motor frontFeed;
     extern okapi::Motor backFeed;
     extern okapi::Motor topFeed;
-    extern okapi::ControllerButton btnRightArrow;
-    extern okapi::ControllerButton btnY;
-    extern okapi::ControllerButton btnUp;
-    extern okapi::ControllerButton btnB;
-    extern okapi::ControllerButton btnDownArrow;
-    extern okapi::ControllerButton btnUpArrow;
-    extern okapi::ControllerButton btnDown;
-    extern okapi::ControllerButton btnRDown;
-    extern okapi::ControllerButton btnRUp;
     extern pros::Optical frontOptical;
     extern pros::Optical backOptical;
     extern pros::ADIAnalogIn topLineTracker;

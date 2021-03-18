@@ -50,33 +50,7 @@ namespace intake
     */
       void user()
       {
-          //maybe a manual toggle in the future.
-          if (btnUp.isPressed() || btnRightArrow.isPressed())
-          {//intake ball in.
-              intakeIn();
-              //intakeOpen = false;
-              //motors.setBrakeMode(AbstractMotor::brakeMode::coast);
-          }
-          else if (btnDown.isPressed() || btnDownArrow.isPressed())
-          {//opens intake up
-              //targetEncoder = motors.getPosition() + 10;
-              intakeOutHalfSpeed();
-              //intakeOpen = true;
-              //motors.setBrakeMode((AbstractMotor::brakeMode::hold));
-          }
-          else if(btnB.isPressed())
-          {
-            intakeOut();
-          }
-          /*else if(intakeOpen)
-          {
-            if(targetEncoder <= motors.getPosition());
-              //implementation needed.
-          }*/
-          else if (!(btnUp.isPressed() || btnRightArrow.isPressed() || btnDown.isPressed() || btnDownArrow.isPressed() || btnB.isPressed()))
-          {
-              motors.moveVoltage(0); // stop motors
-          }
+          if()
 
       }
     }
